@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mini Adventure Game</title>
+    <style>
+        #gameImage {
+            max-width: 100%;
+            height: auto;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HTML: Game content -->
+
+    <h2 id="roomTitle">Room Title</h2>
+    <img id="gameImage" src="" alt="Room Image">
+    <p id="roomDescription">Room Description</p>
+
+    <!-- User input -->
+    <input type="text" id="userInput" placeholder="Type your command">
+    <button onclick="processCommand()">Go</button>
+
+    <!-- JavaScript: Game logic -->
+
+    <script>
+        // Game rooms
+        var rooms = {
+            'start': {
+                'title': 'start',
+                'description': 'you are in room 1.',
+                'image': 'start-room.jpg',
+                'directions': {
+                    'north': 'room2',
+                    'east':'room3',
+                    'south':'room4',
+                    'west':'room5'
+                    
+                }
+            },
+            'room2': {
+                'title': 'room 2',
+                'description': 'you are in room 2.',
+                'image': 'library.jpg',
+                'directions': {
+                    'south': 'start'
+                }
+            },
+            'room3': {
+                'title': 'room 3',
+                'description': 'you are in room 3.',
+                'image': 'laboratory.jpg',
+                'directions': {
+                    'west': 'start'
+                }
+            },
+            'room4': {
+                'title': 'room 4',
+                'description': 'you are in room 4.',
+                'image': 'laboratory.jpg',
+                'directions': {
+                    'north': 'start'
+                }
+            },
+            'room5': {
+                'title': 'room 5',
+                'description': 'you are in room 5.',
+                'image': 'laboratory.jpg',
+                'directions': {
+                    'east': 'start'
+                }
+            }
+        };
+
+        var currentRoom = 'start'; // Starting room
+        updateRoom();
+
+        function processCommand() {
+            var command = document.getElementById('userInput').value.toLowerCase();
+            var directions = rooms[currentRoom].directions;
+
+            if (directions[command]) {
+                currentRoom = directions[command];
+                updateRoom();
+            } else {
+                alert('You cannot go that way.');
+            }
+
+            document.getElementById('userInput').value = ''; // Clear input field
+        }
+
+        function updateRoom() {
+            var room = rooms[currentRoom];
+            document.getElementById('roomTitle').innerText = room.title;
+            document.getElementById('roomDescription').innerText = room.description;
+            document.getElementById('gameImage').src = room.image;
+        }
+    </script>
+
+</body>
+</html>
