@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8" />
+    <title>BREAKOUT</title>
+
+    <!-----------------------------------------------css section--------------------------------------------------->
+      <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        canvas {
+            background: #000000;
+            display: block;
+            margin: 0 auto;
+        }
+      </style>
+    <!-----------------------------------------------css section--------------------------------------------------->  
+</head>
+
+<body>
+    <canvas id="myCanvas" width="600" height="400"></canvas>
+
+<!-----------------------------------------------javascript section------------------------------------------------>
+<script>
+
+  var canvas = document.getElementById("myCanvas");
+  var ctx = canvas.getContext("2d");
+
+  var BallX = canvas.width/2;
+  var BallY = canvas.height-30;
+  var bVx = 2;
+  var bVy = -2;
+
+  function drawBall() {
+    ctx.beginPath();
+    ctx.arc(BallX, BallY, 10, 0, MAth.PI*2);
+    ctx.fillStyle = "#0095DD";
+    ctx.fill();
+    ctx.closePath();
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawBall();
+    BallX += bVx;
+    Bally += bVy;
+  }
+
+  setInterval(draw, 10);
+</script>
+<!-----------------------------------------------javascript section------------------------------------------------>
+</body>
+</html>
