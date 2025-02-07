@@ -26,13 +26,25 @@
 <!-----------------------------------------------javascript section------------------------------------------------>
 <script>
 
-  var canvas = document.getElementById("myCanvas");
+  var canvas = document.getElementById("myCanvas"); 
   var ctx = canvas.getContext("2d");
 
   var BallX = canvas.width/2;
   var BallY = canvas.height-30;
+  var ballRadius = 4;
   var bVx = 2;
   var bVy = -2;
+  var paddleHeight = 10;
+  var paddleWidth = 75;
+  var paddleX = (canvas.width - paddleWidth) / 2
+
+  function drawPaddle() {
+    ctx.beginPath();
+    ctx.rect(paddleX, canvas.height - paddleHeight, paddleWidth, paddleHeight);
+    ctx.fillStyle = "#0095DD";
+    ctx.fill();
+    ctx.closePath();
+    }
 
   function drawBall() {
     ctx.beginPath();
@@ -45,8 +57,18 @@
   function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawBall();
+    drawPaddle();
+
+    if (BallX + bVx > canvas.width-ballRadius || BallX+ bVx < ballRadius) {
+      bVx = -bVx;
+    }
+
+    if (BallY + bVy > canvas.height-ballRadius || BallY+ bVy < ballRadius) {
+      bVy = -bVy;
+    }
+
     BallX += bVx;
-    Bally += bVy;
+    BallY += bVy;
   }
 
   setInterval(draw, 10);
