@@ -68,17 +68,26 @@
       }
     }
 
+    function movePaddle() {
+      if(rightPressed == true) {
+        paddleX++;
+      }
+      else if(leftPressed == true) {
+        paddleX--;  
+    }
+  }
+
     function checkCollision() {
-      if (ballX + bVx > canvas.width - ballRadius || bsllX + bVx < ballRadius) {
+      if (BallX + bVx > canvas.width - ballRadius || BallX + bVx < ballRadius) {
         bVx = -bVx;
       }
 
-      if (ballY + bVy < ballRadius)  {
+      if (BallY + bVy < ballRadius)  {
         bVy = -bVy;
       }
 
-      if (ballY + bVy > canvas.height - ballRadius) {
-        if (ballX > paddleX && ballX < paddleX + paddleWidth) { 
+      if (BallY + bVy > canvas.height - ballRadius) {
+        if (BallX > paddleX && BallX < paddleX + paddleWidth) { 
           bVy = -bVy;
           console.log("Hit the paddle!");
         } else {
@@ -100,9 +109,11 @@
 
   function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    checkCollision()
+    checkCollision();
+    movePaddle();
     drawBall();
     drawPaddle();
+
 
     if (BallX + bVx > canvas.width-ballRadius || BallX+ bVx < ballRadius) {
       bVx = -bVx;
@@ -116,7 +127,7 @@
     BallY += bVy;
   }
   
-  interval = (draw, 10);
+  interval = setInterval(draw, 10);
 </script>
 <!-----------------------------------------------javascript section------------------------------------------------>
 </body>
