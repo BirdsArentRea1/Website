@@ -40,6 +40,9 @@
   var paddleHeight = 10;
   var paddleWidth = 75;
   var paddleX = (canvas.width - paddleWidth) / 2;
+  var rightPressed = false;
+  var leftPressed = false;
+  const SPEED = 3;
 
   //Brick variables
   const brickRowCount = 3;
@@ -83,10 +86,10 @@
 
     function movePaddle() {
       if(rightPressed == true) {
-        paddleX++;
+        paddleX += SPEED;
       }
       else if(leftPressed == true) {
-        paddleX--;
+        paddleX -= SPEED;
     }
   }
 
@@ -153,6 +156,7 @@
     drawBall();
     drawPaddle();
     movePaddle();
+    drawBricks();
 
 
     if (BallX + bVx > canvas.width-ballRadius || BallX+ bVx < ballRadius) {
@@ -160,7 +164,7 @@
     }
 
     if (BallY + bVy > canvas.height-ballRadius || BallY+ bVy < ballRadius) {
-      bVy = -bVy;
+      bVy = -bVy; 
     }
 
     BallX += bVx;
