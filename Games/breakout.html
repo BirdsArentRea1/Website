@@ -34,14 +34,12 @@
         var ctx = canvas.getContext("2d");
         var score = 0;
 
-        // Ball variables
         var BallX = canvas.width / 2;
         var BallY = canvas.height - 30;
         var ballRadius = 10;
         var bVx = 2;
         var bVy = -2;
 
-        // Paddle variables
         var paddleHeight = 10;
         var paddleWidth = 75;
         var paddleX = (canvas.width - paddleWidth) / 2;
@@ -49,14 +47,13 @@
         var leftPressed = false;
         const SPEED = 4;
 
-        // Brick variables
         const brickRowCount = 6;
         const brickColumnCount = 9;
         const brickWidth = 75;
         const brickHeight = 20;
         const brickPadding = 10;
         const brickOffsetTop = 30;
-        const brickOffsetLeft = 30;
+        const brickOffsetLeft = (canvas.width - (brickWidth * brickColumnCount + brickPadding * (brickColumnCount - 1))) / 2;
         var isAlive = true;
 
         let interval = 0;
@@ -112,7 +109,7 @@
         for (let c = 0; c < brickColumnCount; c++) {
             bricks[c] = [];
             for (let r = 0; r < brickRowCount; r++) {
-                const brickX = c * (brickWidth + brickPadding) + brickOffsetLeft;
+                const brickX = brickOffsetLeft + c * (brickWidth + brickPadding);
                 const brickY = r * (brickHeight + brickPadding) + brickOffsetTop;
                 bricks[c][r] = { x: brickX, y: brickY, status: 1, color: brickColors[r % brickColors.length], isAlive };
             }
@@ -169,10 +166,10 @@
                     const b = bricks[c][r];
                     if (b.status === 1) {
                         if (
-                            BallX > b.x &&
-                            BallX < b.x + brickWidth &&
-                            BallY > b.y &&
-                            BallY < b.y + brickHeight
+                            BallX + ballRadius > b.x &&
+                            BallX - ballRadius < b.x + brickWidth &&
+                            BallY + ballRadius > b.y &&
+                            BallY - ballRadius < b.y + brickHeight
                         ) {
                             bVy = -bVy;
                             b.status = 0;
@@ -197,21 +194,20 @@
             ctx.fillStyle = "#FFFFFF";
 
             message1.forEach((text, index) => {
-            const textX = brickWidth * 4 + (index * (brickWidth + brickPadding))
-            const textY = brickHeight * 4;
-            ctx.fillText(text, textX, textY);
+                const textX = brickWidth * 4 + (index * (brickWidth + brickPadding))
+                const textY = brickHeight * 4;
+                ctx.fillText(text, textX, textY);
             });
             message2.forEach((text, index) => {
-            const textX = brickWidth * 4 + (index * (brickWidth + brickPadding))
-            const textY = brickHeight * 5 + brickPadding;
-            ctx.fillText(text, textX, textY);
+                const textX = brickWidth * 4 + (index * (brickWidth + brickPadding))
+                const textY = brickHeight * 5 + brickPadding;
+                ctx.fillText(text, textX, textY);
             });
             message3.forEach((text, index) => {
-            const textX = brickWidth * 3 + (index * (brickWidth + brickPadding))
-            const textY = brickHeight * 6 + brickPadding * 2;
-            ctx.fillText(text, textX, textY);
+                const textX = brickWidth * 3 + (index * (brickWidth + brickPadding))
+                const textY = brickHeight * 6 + brickPadding * 2;
+                ctx.fillText(text, textX, textY);
             });
-
         }
 
         function draw() {
